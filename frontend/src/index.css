@@ -1,0 +1,142 @@
+/* === Global theme (gentle black + soft color glows) ===================== */
+:root {
+  --bg: #000;            /* black base */
+  --text: #e5e7eb;       /* slate-200 */
+  --muted: #9aa3b2;      /* slate-400 */
+  --card: #0e1016;       /* near-black */
+  --ring: 99 102 241;    /* indigo-500 (R G B) */
+
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.55;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: var(--text);
+  background-color: var(--bg);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* keep the app nicely centered with comfy page margins */
+#root { max-width: 1024px; margin-inline: auto; }
+
+/* === Page canvas ======================================================== */
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  padding: 28px;                 /* comfy margin around content */
+  min-width: 320px;
+  min-height: 100vh;
+  display: block;
+  color: var(--text);
+  text-align: center;
+
+  /* softer glows; much lower opacity than before */
+  background:
+    radial-gradient(900px 600px at 8% -10%,   rgba(99,102,241,0.10), transparent 60%),
+    radial-gradient(700px 500px at 100% 0%,   rgba(236,72,153,0.08), transparent 60%),
+    radial-gradient(1000px 700px at 50% 115%, rgba(249,115,22,0.06), transparent 65%),
+    #050507; /* subtle black tint */
+}
+
+/* optional very subtle vignette to reduce edge glare */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 85% at 50% 30%, transparent 65%, rgba(0,0,0,.45));
+  z-index: 0;
+}
+
+/* lift real content above vignette */
+#root, header, main, footer { position: relative; z-index: 1; }
+
+/* === Headings & text ==================================================== */
+h1 { font-size: 2.6rem; line-height: 1.1; margin: .2em 0 .5em; }
+h2 { font-size: 2rem;   line-height: 1.15; margin: .2em 0 .6em; }
+p  { color: var(--muted); }
+
+/* === Links (used for nav too) ========================================== */
+a {
+  font-weight: 600;
+  color: #c7b8ff;              /* violet-200 */
+  text-decoration: none;
+}
+a:hover { color: #f3a7d1; }    /* pink-200 */
+
+/* === Cards / sections =================================================== */
+section, .card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  padding: 1rem;
+}
+
+/* === Inputs + buttons (dark-friendly, calm) ============================ */
+input, select, textarea {
+  font: inherit;
+  color: var(--text);
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: #0a0c12;
+  padding: 0.6rem 0.8rem;
+  outline: none;
+}
+input::placeholder, textarea::placeholder { color: #98a1ad; }
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 2px rgba(var(--ring) / 0.35);
+  border-color: rgb(var(--ring));
+}
+
+button {
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 0.58rem 1rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text);
+  background: #191c24;                   /* neutral by default */
+  transition: transform .06s ease, filter .2s ease, background .2s ease;
+}
+button:hover { background: #232938; }
+button:active { transform: translateY(1px); }
+button:focus-visible { outline: 4px auto rgb(var(--ring)); }
+
+/* images */
+img { max-width: 100%; height: auto; display: block; border-radius: 10px; }
+
+/* === Top nav spacing helper ============================================ */
+/* apply these utility classes in NavBar (see section 2) */
+.nav-wrap {            /* container for the links/buttons */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem .75rem;   /* row & column gaps */
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .45rem .85rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.08);
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-pill:hover { background: rgba(255,255,255,.14); }
+/* Fallback spacing for nav groups */
+.nav-fix > * + * { margin-left: 16px; }
+
