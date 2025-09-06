@@ -41,12 +41,7 @@ const upload = multer({
   },
 });
 
-// ------------------------------------------------------------------
-// POST /api/listings
-// Accepts either:
-//   - multipart/form-data with field "image" (file), or
-//   - JSON with { imageUrl: "https://..." }
-// ------------------------------------------------------------------
+
 router.post("/", auth, upload.single("image"), async (req, res) => {
   try {
     let {

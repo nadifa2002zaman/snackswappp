@@ -5,9 +5,7 @@ import User from "../models/user.js";
 import auth from "../middleware/auth.js";
 
 
-// if your auth middleware exists, you can add it later. Not needed for basic login/register.
 
-const router = express.Router();
 
 // POST /api/auth/register
 router.post("/register", async (req, res) => {
@@ -115,21 +113,6 @@ router.get("/me", auth, async (req, res) => {
 });
 
 
-// GET /api/auth/me  – return current logged-in user
-router.get("/me", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id)
-      .select("-password") // don't send hashed password
-      .lean();
 
-    if (!user) {
-      return res.status(404).json({ ok: false, error: "User not found" });
-    }
-
-    res.json({ ok: true, data: user });
-  } catch (e) {
-    res.status(500).json({ ok: false, error: e.message });
-  }
-});
 
 export default router;

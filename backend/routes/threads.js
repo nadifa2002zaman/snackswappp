@@ -8,13 +8,6 @@ import Listing from "../models/listing.js";
 
 const router = express.Router();
 
-/** -----------------------------------------------------------------------
- * Helper: migrate a legacy thread to always have `participants` populated.
- * Supports:
- *   - New    : t.participants (Array<ObjectId>|Array<string>)
- *   - Old    : t.participantsIds (Array<ObjectId>|Array<string>)
- *   - Legacy : t.buyerId / t.sellerId (ObjectId|string)
- * ---------------------------------------------------------------------- */
 async function migrateParticipantsIfNeeded(thread) {
   if (!thread) return thread;
 
@@ -50,11 +43,7 @@ function getMemberStrings(t) {
   return raw.map((p) => String(p?._id || p));
 }
 
-/**
- * POST /api/threads/start
- * Create (or reuse) a thread between current user and the listing owner.
- * Body: { listingId }
- */
+
 router.post("/start", auth, async (req, res) => {
   try {
     const { listingId } = req.body || {};

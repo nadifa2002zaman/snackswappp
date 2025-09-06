@@ -11,11 +11,7 @@ const router = express.Router();
 /* utilities */
 const isObjectId = (v) => mongoose.Types.ObjectId.isValid(String(v));
 
-/**
- * GET /api/offers/mine?type=incoming|outgoing
- * - incoming: offers made to listings I own (ownerId === me)
- * - outgoing: offers I sent (offeredBy === me)
- */
+
 router.get("/mine", auth, async (req, res) => {
   try {
     const me = req.user.id || req.user._id;
@@ -44,11 +40,7 @@ router.get("/mine", auth, async (req, res) => {
   }
 });
 
-/**
- * POST /api/offers
- * body: { listingId, note }
- * Creates a pending offer to a listing (not to your own).
- */
+
 router.post("/", auth, async (req, res) => {
   try {
     let { listingId, note = "" } = req.body || {};
@@ -93,12 +85,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-/**
- * PATCH /api/offers/:id
- * body: { action: "accept" | "reject" | "cancel" }
- * - accept/reject: only listing owner can do this
- * - cancel: only offer sender can do this
- */
+
 router.patch("/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;

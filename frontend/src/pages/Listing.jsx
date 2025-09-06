@@ -4,10 +4,7 @@ import { useAuth } from "../lib/auth";
 import MessageSellerButton from "../components/MessageSellerButton.jsx";
 import ReviewsPreview from "../components/ReviewsPreview.jsx";
 
-/** Build a public URL for images.
- *  - If already absolute (http/https), return as-is
- *  - If starts with /uploads or uploads, prefix the backend origin (5001)
- */
+
 const API_BASE = import.meta.env.VITE_API_URL || ""; // e.g., http://localhost:5001/api
 const FILES_BASE = API_BASE.replace(/\/api\/?$/, ""); // -> http://localhost:5001
 function toPublicUrl(url) {
