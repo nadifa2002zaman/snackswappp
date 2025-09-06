@@ -5,7 +5,7 @@ import User from "../models/user.js";
 import auth from "../middleware/auth.js";
 
 
-
+const router = express.Router(); 
 
 // POST /api/auth/register
 router.post("/register", async (req, res) => {
@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
 
 
 // --- DIAGNOSTIC LOGIN (temporary) ---
-router.post("/login", async (req, res) => {
+ router.post("/login", async (req, res) => {
   try {
     // 1) log the raw body (don’t print full password)
     console.log("LOGIN body:", {

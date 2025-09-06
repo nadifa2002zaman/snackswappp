@@ -134,13 +134,12 @@ router.patch("/:id", auth, async (req, res) => {
 
 
 
-// ADD this route
+
 router.get("/unread", auth, async (req, res) => {
   try {
     const me = String(req.user.id);
 
-    // Unread = pending offers where I'm the seller (i.e., buyer requested)
-    // If you also support seller counter-offers, duplicate the query for buyerId: me.
+  
     const pendingForMe = await Offer.countDocuments({
       sellerId: me,
       status: "pending",

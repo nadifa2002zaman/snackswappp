@@ -4,16 +4,11 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import authOptional from "../middleware/authOptional.js";
-
 import { fileURLToPath } from "url";
-
 import auth from "../middleware/auth.js";       // ✅ correct
-
 import Listing from "../models/listing.js";
 
 const router = express.Router();
-
-// --- local disk upload setup (for optional direct image upload) ---
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -144,13 +139,6 @@ router.get("/", authOptional, async (req, res) => {
       }
     }
 
-    if (status && status.trim()) {
-      filter.status = status;
-    }
-
-    if (mine === "true" && req.user?.id) {
-      filter.ownerId = req.user.id;
-    }
 
     const docs = await Listing.find(filter)
       .sort({ createdAt: -1 })

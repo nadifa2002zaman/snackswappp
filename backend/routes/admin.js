@@ -17,16 +17,13 @@ function requireAdmin(req, res, next) {
 }
 
 // GET /api/admin/listings?onlyReported=true
-r.get("/listings", auth, requireAdmin, async (req, res) => {
+r.get("/listings", guard, async (req, res) => {
   const { onlyReported } = req.query;
-  const q = onlyReported ? { reportedCount: { $gte: 1 } } : {};
-  const items = await listing.find({ reportedCount: { $gte: 1 } })
-    .sort({ reportedCount: -1 })
-    .lean();
-
-
+  const q = onlyReported === "true" ? { reportedCount: { $gte: 1 } } : {};
+  const items = await Listing.find(q).sort({ reportedCount: -1, createdAt: -1 }).lean();
   res.json({ data: items });
 });
+
 
 
 
