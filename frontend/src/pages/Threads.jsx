@@ -39,7 +39,7 @@ export default function Threads() {
       <div className="space-y-3">
         {items.map((t) => {
           // who to label: prefer listing owner (seller); fallback to “other participant”
-          const parts = t.participants || t.participant || [];
+          const parts = t.participants || t.participantIds || [];
           const seller = t.listingId?.ownerId || null;
           const other = parts.find((p) => p && String(p._id) !== meId) || null;
 
